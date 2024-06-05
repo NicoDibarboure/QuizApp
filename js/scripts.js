@@ -7,7 +7,8 @@ const questions = [
       { text: "Dublin", correct: false },
       { text: "Lima", correct: false },
     ],
-
+  },
+  {
     question: "What is the capital of India?",
     answers: [
       { text: "New Delhi", correct: true },
@@ -15,7 +16,8 @@ const questions = [
       { text: "Kolkata", correct: false },
       { text: "Chennai", correct: false },
     ],
-
+  },
+  {
     question: "What is the capital of Japan?",
     answers: [
       { text: "Tokyo", correct: true },
@@ -23,7 +25,8 @@ const questions = [
       { text: "Kyoto", correct: false },
       { text: "Hiroshima", correct: false },
     ],
-
+  },
+  {
     question: "What is the capital of Australia?",
     answers: [
       { text: "Sydney", correct: false },
@@ -31,7 +34,8 @@ const questions = [
       { text: "Canberra", correct: true },
       { text: "Brisbane", correct: false },
     ],
-
+  },
+  {
     question: "What is the capital of Brazil?",
     answers: [
       { text: "Sao Paulo", correct: false },
@@ -39,7 +43,8 @@ const questions = [
       { text: "Brasilia", correct: true },
       { text: "Salvador", correct: false },
     ],
-
+  },
+  {
     question: "What is the capital of Canada?",
     answers: [
       { text: "Toronto", correct: false },
@@ -47,7 +52,8 @@ const questions = [
       { text: "Ottawa", correct: true },
       { text: "Montreal", correct: false },
     ],
-
+  },
+  {
     question: "What is the capital of China?",
     answers: [
       { text: "Beijing", correct: true },
@@ -102,6 +108,7 @@ function selectAnswer(e) {
   const isCorrect = selectedBtn.dataset.correct === "true";
   if (isCorrect) {
     selectedBtn.classList.add("correct");
+    score++;
   } else {
     selectedBtn.classList.add("incorrect");
   }
@@ -113,5 +120,29 @@ function selectAnswer(e) {
   });
   nextButton.style.display = "block";
 }
+
+function showScore() {
+  resetState();
+  questionElement.innerHTML = `Your score is ${score} out of ${questions.length};`;
+  nextButton.innerHTML = "Play Again";
+  nextButton.style.display = "block";
+}
+
+function handleNextButton() {
+  currentQuestionIndex++;
+  if (currentQuestionIndex < questions.length) {
+    showQuestion();
+  } else {
+    showScore();
+  }
+}
+
+nextButton.addEventListener("click", () => {
+  if (currentQuestionIndex < questions.length) {
+    handleNextButton();
+  } else {
+    startQuiz();
+  }
+});
 
 startQuiz();
